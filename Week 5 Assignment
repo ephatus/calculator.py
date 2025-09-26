@@ -1,0 +1,62 @@
+ Design Your Own Class! 
+
+# Base class
+class Superhero:
+    def __init__(self, name, power, origin):
+        self.name = name
+        self.power = power
+        self.origin = origin
+
+    def introduce(self):
+        print(f"I am {self.name} from {self.origin}, and I have the power of {self.power}!")
+
+    def use_power(self):
+        print(f"{self.name} uses their power of {self.power}!")
+
+# Subclass
+class FlyingSuperhero(Superhero):
+    def __init__(self, name, power, origin, flight_speed):
+        super().__init__(name, power, origin)
+        self.flight_speed = flight_speed
+
+    def fly(self):
+        print(f"{self.name} takes off into the sky at {self.flight_speed} km/h!")
+
+# Example usage
+hero1 = Superhero("ShadowStrike", "Invisibility", "Earth")
+hero1.introduce()
+hero1.use_power()
+
+print()
+
+hero2 = FlyingSuperhero("SkyBlaze", "Laser Vision", "Mars", 3000)
+hero2.introduce()
+hero2.use_power()
+hero2.fly()
+
+
+
+
+-Polymorphism Challenge
+
+class Vehicle:
+    def move(self):
+        print("The vehicle moves.")
+
+class Car(Vehicle):
+    def move(self):
+        print("🚗 The car drives on the road.")
+
+class Plane(Vehicle):
+    def move(self):
+        print("✈️ The plane flies in the sky.")
+
+class Boat(Vehicle):
+    def move(self):
+        print("🛥️ The boat sails on the water.")
+
+# Polymorphism in action
+vehicles = [Car(), Plane(), Boat()]
+
+for v in vehicles:
+    v.move()
