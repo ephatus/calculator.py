@@ -1,0 +1,42 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# === Step 1: Load CSV file ===
+file_path = "sales_data.csv"
+df = pd.read_csv(file_path)
+
+# === Step 2: Perform Analysis ===
+
+# Total revenue
+total_revenue = df["Revenue ($)"].sum()
+
+# Best-selling product (by quantity sold)
+best_product = df.groupby("Product")["Quantity Sold"].sum().idxmax()
+best_quantity = df.groupby("Product")["Quantity Sold"].sum().max()
+
+# Highest sales day (by revenue)
+highest_sales_day = df.groupby("Date")["Revenue ($)"].sum().idxmax()
+highest_sales_value = df.groupby("Date")["Revenue ($)"].sum().max()
+
+# === Step 3: Save results to text file ===
+summary = (
+    f"Total Revenue: ${total_revenue:,}\n"
+    f"Best-Selling Product: {best_product} ({best_quantity} units sold)\n"
+    f"Highest Sales Day: {highest_sales_day} (${highest_sales_value:,})\n"
+)
+
+with open("sales_summary.txt", "w") as f:
+    f.write(summary)
+
+# Print insights
+print(summary)
+
+# === Step 4 (Bonus): Visualization ===
+plt.figure(figsize=(8, 5))
+df.groupby("Date")["Revenue ($)"].sum().plot(kind="line", marker="o")
+plt.title("Sales Revenue Trend")
+plt.xlabel("Date")
+plt.ylabel("Revenue ($)")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
